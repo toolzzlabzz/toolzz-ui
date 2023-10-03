@@ -17,32 +17,32 @@ function _listdir(path) {
   });
 }
 
-_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/`)
-_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/components`)
+_mkdir(`../../../../opt/render/.toolzz-ui-app/generated/`)
+_mkdir(`../../../../opt/render/.toolzz-ui-app/generated/components`)
 
 
 async function save_component(query){
 
   if (!query.code.length) return false
 
-  _mkdir(`./../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}`)
+  _mkdir(`../../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}`)
 
   // writes metadata
   fs.writeFileSync(
-    `./../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.json`,
+    `../../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.json`,
     JSON.stringify(query)
   )
 
   // writes tsx locally
   fs.writeFileSync(
-    `./../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.tsx`,
+    `../../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.tsx`,
     query.code
   )
 
   console.dir({
     saved : {
-      metadata : `./../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.json`,
-      component : `./../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.tsx`,
+      metadata : `../../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.json`,
+      component : `../../../../opt/render/.toolzz-ui-app/generated/components/${query.componentId}/${query.version}.tsx`,
     }
   })
 
@@ -53,27 +53,27 @@ async function dump_webapp(){
   // writes components + metadata + general dump file in webapp
 	console.dir({
 		event:`> ./modules/export/react dump_webapp() started`,
-		warn: 'if webapp crashes because of invalid generated components\nadd componentId and version to ./../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt\nthen run `node export_refresh.js` from server folder',
+		warn: 'if webapp crashes because of invalid generated components\nadd componentId and version to ../../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt\nthen run `node export_refresh.js` from server folder',
 	})
 
   fs.rmSync(`${process.env.REACT_WEBAPP_DIR}/src/components/openv0_generated`, { recursive: true, force: true });
   _mkdir(`${process.env.REACT_WEBAPP_DIR}/src/components/openv0_generated`)
 
 	const EXPORT_IGNORE = fs.readFileSync(
-		`./../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt`,
+		`../../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt`,
 		'utf-8'
 	).trim().split('\n').map(e=>e.trim()).filter(e=>e.length)
 
-	console.dir({'EXPORT_IGNORE' : {'./../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt' : EXPORT_IGNORE}})
+	console.dir({'EXPORT_IGNORE' : {'../../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt' : EXPORT_IGNORE}})
 
-  const components_list = _listdir(`./../../../opt/render/.toolzz-ui-app/generated/components`)
+  const components_list = _listdir(`../../../../opt/render/.toolzz-ui-app/generated/components`)
 
   const components = components_list.map((dir)=>{
     return {
       name: dir.toLowerCase(), // slug
       title: dir,
       desc: "",
-      versions: fs.readdirSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.tsx`)).sort().map((e)=>{
+      versions: fs.readdirSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.tsx`)).sort().map((e)=>{
 				const version = e.split(`.tsx`)[0]
 				if (
 					EXPORT_IGNORE.includes( (`${dir} ${version}`).trim() )
@@ -97,13 +97,13 @@ async function dump_webapp(){
     // make metadata.
     const metadata_json = {
 			componentId: dir,
-      iterations: fs.readdirSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.json`)).sort().map( (json_file) => {
-          const component_metadata = JSON.parse( fs.readFileSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file}`,'utf-8') )
+      iterations: fs.readdirSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.json`)).sort().map( (json_file) => {
+          const component_metadata = JSON.parse( fs.readFileSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file}`,'utf-8') )
 					const validation_status = validate_component.validate_babel(
-						fs.readFileSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file.split('.json')[0]}.tsx`,'utf-8')
+						fs.readFileSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file.split('.json')[0]}.tsx`,'utf-8')
 					)
 					if (!validation_status) {
-						console.dir({babel_validation_error : `./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file.split('.json')[0]}.tsx`})
+						console.dir({babel_validation_error : `../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${json_file.split('.json')[0]}.tsx`})
 						return false
 					}
 					if (
@@ -130,12 +130,12 @@ async function dump_webapp(){
     )
 
     // copy tsx files
-    fs.readdirSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.tsx`)).map( (tsx_file) => {
+    fs.readdirSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}`).filter(e=>e.endsWith(`.tsx`)).map( (tsx_file) => {
 			const validation_status = validate_component.validate_babel(
-				fs.readFileSync(`./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`,'utf-8')
+				fs.readFileSync(`../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`,'utf-8')
 			)
 			if (!validation_status) {
-				console.dir({babel_validation_error : `./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`})
+				console.dir({babel_validation_error : `../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`})
 				return false
 			}
 
@@ -145,7 +145,7 @@ async function dump_webapp(){
 			) return false
 
       fs.copyFileSync(
-        `./../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`,
+        `../../../../opt/render/.toolzz-ui-app/generated/components/${dir}/${tsx_file}`,
         `${process.env.REACT_WEBAPP_DIR}/src/components/openv0_generated/${dir.toLowerCase()}/${tsx_file}`,
       )
     })
