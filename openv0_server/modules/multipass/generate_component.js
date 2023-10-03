@@ -19,9 +19,9 @@ const openai = new OpenAI({
 function _mkdir(path){
 	if (!fs.existsSync(path)) fs.mkdirSync(path)
 }
-_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/logs`)
-_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/logs/generate_component`)
-_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/components`)
+_mkdir(`../../../../opt/render/.toolzz-ui-app/generated/logs`)
+_mkdir(`../../../../opt/render/.toolzz-ui-app/generated/logs/generate_component`)
+_mkdir(`../../../../opt/render/.toolzz-ui-app/generated/components`)
 
 
 
@@ -108,7 +108,7 @@ async function new_component(query){
   console.dir( {generated_code} , {depth:null} )
 
   fs.writeFileSync(
-    `./../../../opt/render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
+    `../../../../opt/render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
     JSON.stringify({
       task: query.task,
       context,
@@ -222,7 +222,7 @@ async function iterate_component(query){
   console.dir( {generated_code} , {depth:null} )
 
   fs.writeFileSync(
-    `./../../../opt/render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
+    `../../../../opt/render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
     JSON.stringify({
       task: query.task,
       context,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import generatedComponents from './../../../opt/render/.toolzz-ui-app/generated_components_dump.json';
+import generatedComponents from '../../../../opt/render/.toolzz-ui-app/generated_components_dump.json';
 import ErrorBoundary from './ErrorBoundary';
 
 export default function GeneratedComponentsList() {

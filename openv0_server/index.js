@@ -20,10 +20,10 @@ async function export_validity_check(query){
 		console.dir({
 			export_check_failed: {
 				component: query,
-				message: `did not received ping back from webapp after component export;\ngenerated component likely has issues (ie. syntax; nonexistent imports: ...)\nadding component to ./../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt and refreshing webapp exports`
+				message: `did not received ping back from webapp after component export;\ngenerated component likely has issues (ie. syntax; nonexistent imports: ...)\nadding component to ../../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt and refreshing webapp exports`
 			}
 		})
-		fs.appendFileSync(`./../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt`, `\n${query.componentId} ${query.version}`);
+		fs.appendFileSync(`../../../../opt/render/.toolzz-ui-app/generated/export_ignore.txt`, `\n${query.componentId} ${query.version}`);
 		await export_react.dump_webapp()
 	}
 
