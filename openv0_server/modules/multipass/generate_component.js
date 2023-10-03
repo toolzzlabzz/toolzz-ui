@@ -19,9 +19,9 @@ const openai = new OpenAI({
 function _mkdir(path){
 	if (!fs.existsSync(path)) fs.mkdirSync(path)
 }
-_mkdir(`./generated/logs`)
-_mkdir(`./generated/logs/generate_component`)
-_mkdir(`./generated/components`)
+_mkdir(`../../../../render/.toolzz-ui-app/generated/logs`)
+_mkdir(`../../../../render/.toolzz-ui-app/generated/logs/generate_component`)
+_mkdir(`../../../../render/.toolzz-ui-app/generated/components`)
 
 
 
@@ -108,7 +108,7 @@ async function new_component(query){
   console.dir( {generated_code} , {depth:null} )
 
   fs.writeFileSync(
-    `./generated/logs/generate_component/${Date.now()}.json`,
+    `../../../../render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
     JSON.stringify({
       task: query.task,
       context,
@@ -222,7 +222,7 @@ async function iterate_component(query){
   console.dir( {generated_code} , {depth:null} )
 
   fs.writeFileSync(
-    `./generated/logs/generate_component/${Date.now()}.json`,
+    `../../../../render/.toolzz-ui-app/generated/logs/generate_component/${Date.now()}.json`,
     JSON.stringify({
       task: query.task,
       context,
