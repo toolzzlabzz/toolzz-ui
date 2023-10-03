@@ -16,8 +16,8 @@ const openai = new OpenAI({
 function _mkdir(path){
 	if (!fs.existsSync(path)) fs.mkdirSync(path)
 }
-_mkdir(`../../../../render/.toolzz-ui-app/generated/logs`)
-_mkdir(`../../../../render/.toolzz-ui-app/generated/logs/design_task`)
+_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/logs`)
+_mkdir(`./../../../opt/render/.toolzz-ui-app/generated/logs/design_task`)
 
 /*
   in  -> gets a new component generation query string
@@ -150,7 +150,7 @@ async function run(req){
   }
 
   fs.writeFileSync(
-    `../../../../render/.toolzz-ui-app/generated/logs/design_task/${Date.now()}.json`,
+    `./../../../opt/render/.toolzz-ui-app/generated/logs/design_task/${Date.now()}.json`,
     JSON.stringify({
       ...req,
       context,
