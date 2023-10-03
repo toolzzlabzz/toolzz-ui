@@ -97,7 +97,7 @@ export default function ComponentView() {
           setSelectedComponentIndex( components.length-1 )
           console.log(selectedComponentIndex)
         }
-        fetch(`http://localhost:3000/component/ping/?from=View Component&component=${componentId}`);
+        fetch(`${import.meta.env.VITE_API_URL}/component/ping/?from=View Component&component=${componentId}`);
       });
 
 
