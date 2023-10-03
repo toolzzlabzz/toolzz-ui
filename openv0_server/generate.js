@@ -57,14 +57,14 @@ async function iterate_component(req) {
   // {query : `user_query` , componentId ,}
 
   // fetch last version of component
-  const components_list = fs.readdirSync(`./generated/components/${req.componentId}`).filter(e=>e.endsWith(`.json`)).sort()
+  const components_list = fs.readdirSync(`../../../../render/.toolzz-ui-app/generated/components/${req.componentId}`).filter(e=>e.endsWith(`.json`)).sort()
   const previous_component = {
-    ...JSON.parse( fs.readFileSync(`./generated/components/${req.componentId}/${components_list.slice(-1)[0]}`,'utf-8') ),
-    code: fs.readFileSync(`./generated/components/${req.componentId}/${components_list.slice(-1)[0].split('.')[0]}.tsx`,'utf-8'),
+    ...JSON.parse( fs.readFileSync(`../../../../render/.toolzz-ui-app/generated/components/${req.componentId}/${components_list.slice(-1)[0]}`,'utf-8') ),
+    code: fs.readFileSync(`../../../../render/.toolzz-ui-app/generated/components/${req.componentId}/${components_list.slice(-1)[0].split('.')[0]}.tsx`,'utf-8'),
   }
   const first_component = {
-    ...JSON.parse( fs.readFileSync(`./generated/components/${req.componentId}/${components_list[0]}`,'utf-8') ),
-    code: fs.readFileSync(`./generated/components/${req.componentId}/${components_list[0].split('.')[0]}.tsx`,'utf-8'),
+    ...JSON.parse( fs.readFileSync(`../../../../render/.toolzz-ui-app/generated/components/${req.componentId}/${components_list[0]}`,'utf-8') ),
+    code: fs.readFileSync(`../../../../render/.toolzz-ui-app/generated/components/${req.componentId}/${components_list[0].split('.')[0]}.tsx`,'utf-8'),
   }
 
   const iteration_task = await iterate_task.run({
